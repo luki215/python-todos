@@ -31,8 +31,16 @@ def addTodo():
 
 
 def listTodos(*, rev=False):
-    pass
+    with open(dbFile, "r") as file:
+        todos = list(map(parseTodo, file.readlines()))
+        todos.sort(key=lambda x: x[0], reverse=rev)
+        for t in todos:
+            print("%3d %s"%t)
 
+def parseTodo(todo): 
+    priority, text = todo.split(";")
+    return int(priority), text[:-1]
+    
 def deleteInteractive():
     pass
 
