@@ -1,5 +1,8 @@
 import sys
 
+dbFile = "db.dat"
+
+
 def main():
     if(len(sys.argv) < 2 ):
         sys.stderr.write("Must pass arguments")
@@ -12,15 +15,25 @@ def main():
     elif(operation == 'r'):
         listTodos(rev=True)
     elif(operation == 'd'):
-        interactiveMode()
+        deleteInteractive()
+    else:
+        sys.stderr.write("Invalid argument")
 
 def addTodo():
-    pass
+    if(len(sys.argv) < 4):
+        sys.stderr.write("Must specify priority and todo")
+    
+    priority = sys.argv[2]
+    todo = sys.argv[3]
+
+    with open(dbFile, "a") as file:
+        print(f"{priority};{todo}", file=file)
+
 
 def listTodos(*, rev=False):
     pass
 
-def interactiveMode():
+def deleteInteractive():
     pass
 
 if __name__ == "__main__":
